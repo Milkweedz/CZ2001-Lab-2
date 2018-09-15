@@ -16,8 +16,8 @@ import java.util.Scanner;
 
 
 public class HashGenerator {
-    private static String[] test;
     private static HashBucket[] HashMap;
+    private static final int TABLESIZE = 128;       //manually modify hash table size here
 
     public static void main(String[] args) throws IOException {
         System.out.println("Reading input...");
@@ -25,10 +25,31 @@ public class HashGenerator {
         Scanner scan = new Scanner(file);
 
         System.out.println("Hashing...");
-        Hash(file);
+        int success = Hash(file);
+
+        if(success==1) System.out.println("Finished hashing data.");
+
+        int key;
+        while(true){
+            key = scan.nextInt();
+            dataType result = search(key);
+            print result;
+            //this is incomplete code
+        }
     }
 
-    public static void Hash(File file){
+    public static int Hash(File file){
+        //implement hash (use the constant TABLESIZE declared in class!)
 
+
+        int success = 1;    //if hash is successful. otherwise return 0
+        return success;
+    }
+
+    public static int hashFunction(int key){
+        //implement hash function to convert keys into a hashcode using modulus
+        //modulus is constant TABLESIZE!
+
+        return hashcode;
     }
 }

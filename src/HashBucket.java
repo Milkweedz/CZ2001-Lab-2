@@ -1,6 +1,6 @@
 import java.util.LinkedList;
 
 public class HashBucket {
-    private int key;
+    private int hashcode;
     private LinkedList<String> data;
 }
