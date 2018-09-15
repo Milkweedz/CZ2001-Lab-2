@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="263eea92-ed09-46b3-a9d0-a32ad870a916" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HashBucket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HashBucket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HashGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HashGenerator.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -26,24 +24,28 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="class" value="1" />
           <entry key="java" value="4" />
           <entry key="json" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="CLASS" value="1" />
           <entry key="JAVA" value="4" />
           <entry key="JSON" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1963" />
+          <entry key="java" value="2388" />
+          <entry key="txt" value="263" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1963" />
+          <entry key="JAVA" value="2388" />
+          <entry key="PLAIN_TEXT" value="263" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -54,10 +56,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/HashGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="41" column="72" lean-forward="true" selection-start-line="41" selection-start-column="72" selection-end-line="41" selection-end-column="72" />
+            <state relative-caret-position="1299">
+              <caret line="113" column="34" selection-start-line="113" selection-start-column="34" selection-end-line="113" selection-end-column="34" />
               <folding>
+                <element signature="e#0#966#0" expanded="true" />
                 <element signature="imports" expanded="true" />
+                <element signature="e#1702#1710#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -134,7 +138,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537026452354" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537030141714" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -176,6 +180,21 @@
       <option name="presentableId" value="Default" />
       <updated>1536909924523</updated>
     </task>
+    <task id="LOCAL-00001" summary="A modification to the HashBucket structure (change var key to hashcode)&#10;An addition to include hashFunction() method&#10;Added documentation for main(), Hash(), and hashFunction() methods in HashGenerator class">
+      <created>1537026587860</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1537026587861</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Merge branch 'patch-2' of https://github.com/oysterly/CZ2001-Lab-2 into oysterly-patch-2&#10;&#10;# Conflicts:&#10;#&#9;src/HashGenerator.java">
+      <created>1537029291734</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1537029291734</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -214,6 +233,11 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="A modification to the HashBucket structure (change var key to hashcode)&#10;An addition to include hashFunction() method&#10;Added documentation for main(), Hash(), and hashFunction() methods in HashGenerator class" />
+    <MESSAGE value="Merge branch 'patch-2' of https://github.com/oysterly/CZ2001-Lab-2 into oysterly-patch-2&#10;&#10;# Conflicts:&#10;#&#9;src/HashGenerator.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'patch-2' of https://github.com/oysterly/CZ2001-Lab-2 into oysterly-patch-2&#10;&#10;# Conflicts:&#10;#&#9;src/HashGenerator.java" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/io/FileInputStream.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -223,13 +247,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/LinkedList.java" />
-    <entry file="file://$PROJECT_DIR$/src/HashBucket.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/postal_codes_singapore.json">
       <provider selected="true" editor-type-id="LargeFileEditor">
         <state relative-caret-position="221">
@@ -237,12 +254,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/HashBucket.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/out/production/CZ2001 Lab 2/HashGenerator.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#458#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/HashGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="41" column="72" lean-forward="true" selection-start-line="41" selection-start-column="72" selection-end-line="41" selection-end-column="72" />
+        <state relative-caret-position="1299">
+          <caret line="113" column="34" selection-start-line="113" selection-start-column="34" selection-end-line="113" selection-end-column="34" />
           <folding>
+            <element signature="e#0#966#0" expanded="true" />
             <element signature="imports" expanded="true" />
+            <element signature="e#1702#1710#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -9,8 +9,8 @@ Linked lists have variable length, so no probing is required.
  */
 
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 
@@ -40,7 +40,7 @@ public class HashGenerator {
 
     public static int Hash(File file){
         //implement hash (use the constant TABLESIZE declared in class!)
-    public static void Hash(File file){
+
         int size = 11;
         int index = 0;
         int i = 0;
@@ -69,46 +69,56 @@ public class HashGenerator {
             System.out.println(HashMap[i].getKey());
             i++;
         }
+
+        int success = 1;
+        return success; //if hashing is successful, return 1, else 0
     }
 
-    public static String getContents(File aFile) {
+    public static int hashFunction(int key){
+        //algorithm takes key as input and returns hashcode using modulus
+        //modulus based on constant TABLESIZE
+        int hashcode;
+
+        return hashcode;
+    }
+
+    public static String getContents (File aFile){
         //...checks on aFile are elided
         StringBuffer contents = new StringBuffer();
 
         //declared here only to make visible to finally clause
         BufferedReader input = null;
         try {
-        //use buffering, reading one line at a time
-        //FileReader always assumes default encoding is OK!
-        input = new BufferedReader( new FileReader(aFile) );
-        String line = null; //not declared within while loop
-        /*
-        * readLine is a bit quirky :
-        * it returns the content of a line MINUS the newline.
-        * it returns null only for the END of the stream.
-        * it returns an empty String if two newlines appear in a row.
-        */
-        int i = 0;
-        while (( line = input.readLine()) != null){
-            array[i]=line;
-            i++;
-            contents.append(System.getProperty("line.separator"));
-        }
+            //use buffering, reading one line at a time
+            //FileReader always assumes default encoding is OK!
+            input = new BufferedReader(new FileReader(aFile));
+            String line = null; //not declared within while loop
+            /*
+             * readLine is a bit quirky :
+             * it returns the content of a line MINUS the newline.
+             * it returns null only for the END of the stream.
+             * it returns an empty String if two newlines appear in a row.
+             */
+            int i = 0;
+            while ((line = input.readLine()) != null) {
+                array[i] = line;
+                i++;
+                contents.append(System.getProperty("line.separator"));
+            }
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
-        } catch (IOException ex){
-            ex.printStackTrace();
-        }
-        finally {
-        try {
-            if (input!= null) {
-            //flush and close both "input" and its underlying FileReader
-            input.close();
-            }
         } catch (IOException ex) {
             ex.printStackTrace();
+        } finally {
+            try {
+                if (input != null) {
+                    //flush and close both "input" and its underlying FileReader
+                    input.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
-        }
-    return contents.toString();
-  }
+        return contents.toString();
+    }
 }
