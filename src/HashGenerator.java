@@ -64,15 +64,14 @@ public class HashGenerator {
         }
 
 
-        //create the hash table
-
-        for (int i=0; i<TABLESIZE; i++){
-        }
-
 
         //fill the hash table
         for (int i = 0; i < 104; i++) {
             //iterate through entries of input file
+            if (inputStream == null) {
+                success = 0;
+                break;
+            }
             String[] data_entry = getContents(inputStream);
 
 
@@ -141,8 +140,6 @@ public class HashGenerator {
                     }
                 }
             }
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
         } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
