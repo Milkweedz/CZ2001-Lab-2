@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="263eea92-ed09-46b3-a9d0-a32ad870a916" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HashBucket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HashBucket.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/HashGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HashGenerator.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -40,14 +39,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="4395" />
-          <entry key="txt" value="579" />
+          <entry key="java" value="4740" />
+          <entry key="txt" value="1093" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="4395" />
-          <entry key="PLAIN_TEXT" value="579" />
+          <entry key="JAVA" value="4740" />
+          <entry key="PLAIN_TEXT" value="1093" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -58,8 +57,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/HashGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-342">
-              <caret line="84" column="92" lean-forward="true" selection-start-line="84" selection-start-column="92" selection-end-line="84" selection-end-column="92" />
+            <state relative-caret-position="-900">
+              <caret line="71" column="59" lean-forward="true" selection-start-line="71" selection-start-column="59" selection-end-line="71" selection-end-column="59" />
               <folding>
                 <element signature="e#0#4298#0" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -106,7 +105,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="85" />
     <option name="y" value="25" />
     <option name="width" value="1750" />
@@ -139,7 +138,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537277493996" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1537281435115" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -209,14 +208,42 @@
       <option name="project" value="LOCAL" />
       <updated>1537261211770</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Reimplemented Hash() to original specifications.&#10;Renamed HashBucket variable (int) hashcode to key to match its actual function.">
+      <created>1537277599121</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1537277599121</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Merge branch 'master' of https://github.com/Milkweedz/CZ2001-Lab-2&#10;&#10;# Conflicts:&#10;#&#9;src/HashGenerator.java&#10;&#10;&#10;Reimplemented Hash() method.&#10;Renamed HashBucket variable (int) hashcode to key to more accurately reflect its function.">
+      <created>1537277902092</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1537277902092</updated>
+    </task>
+    <task id="LOCAL-00007" summary="First working version of code, minus search() method.">
+      <created>1537278712018</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1537278712018</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Privated and package protected all classes that can be. (HashBucket, hashFunction, Hash, getContent">
+      <created>1537279499351</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1537279499351</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="68" y="20" width="1400" height="776" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25746268" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23154363" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -226,7 +253,7 @@
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32919255" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30028328" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -252,7 +279,11 @@
     <MESSAGE value="A modification to the HashBucket structure (change var key to hashcode)&#10;An addition to include hashFunction() method&#10;Added documentation for main(), Hash(), and hashFunction() methods in HashGenerator class" />
     <MESSAGE value="Merge branch 'patch-2' of https://github.com/oysterly/CZ2001-Lab-2 into oysterly-patch-2&#10;&#10;# Conflicts:&#10;#&#9;src/HashGenerator.java" />
     <MESSAGE value="Previous merge was misnamed. This merge changes the output type of getContent to be a String array. Redundant variable 'size' also removed and replaced by TABLESIZE in Hash() method." />
-    <option name="LAST_COMMIT_MESSAGE" value="Previous merge was misnamed. This merge changes the output type of getContent to be a String array. Redundant variable 'size' also removed and replaced by TABLESIZE in Hash() method." />
+    <MESSAGE value="Reimplemented Hash() to original specifications.&#10;Renamed HashBucket variable (int) hashcode to key to match its actual function." />
+    <MESSAGE value="Merge branch 'master' of https://github.com/Milkweedz/CZ2001-Lab-2&#10;&#10;# Conflicts:&#10;#&#9;src/HashGenerator.java&#10;&#10;&#10;Reimplemented Hash() method.&#10;Renamed HashBucket variable (int) hashcode to key to more accurately reflect its function." />
+    <MESSAGE value="First working version of code, minus search() method." />
+    <MESSAGE value="Privated and package protected all classes that can be. (HashBucket, hashFunction, Hash, getContent" />
+    <option name="LAST_COMMIT_MESSAGE" value="Privated and package protected all classes that can be. (HashBucket, hashFunction, Hash, getContent" />
   </component>
   <component name="editorHistoryManager">
     <entry file="jar://C:/Program Files/Java/jdk-10.0.2/lib/src.zip!/java.base/java/io/FileInputStream.java">
@@ -282,8 +313,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/HashGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-342">
-          <caret line="84" column="92" lean-forward="true" selection-start-line="84" selection-start-column="92" selection-end-line="84" selection-end-column="92" />
+        <state relative-caret-position="-900">
+          <caret line="71" column="59" lean-forward="true" selection-start-line="71" selection-start-column="59" selection-end-line="71" selection-end-column="59" />
           <folding>
             <element signature="e#0#4298#0" expanded="true" />
             <element signature="imports" expanded="true" />

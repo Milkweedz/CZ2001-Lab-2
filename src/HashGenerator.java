@@ -31,23 +31,35 @@ public class HashGenerator {
         if(success==1) System.out.println("Finished hashing data.");
 
         int key;
-        while(true){
+
+
+        /*while(true){
             key = scan.nextInt();
             dataType result = search(key);
             print result;
             //this is incomplete code
-        }
+        }*/
     }
 
 
-    public static int Hash(File file){
+    private static int Hash(File file){
         //implement hash (use the constant TABLESIZE declared in class!)
 
-        LinkedList<String> temp = new LinkedList();     //list to store data entries
+        LinkedList<String[]> temp = new LinkedList();     //list to store data entries
         int key;                                        //key in this example is the postcode
         int hashcode;                                   //hashcode is the output of the hash function
         Pattern regex = Pattern.compile("\\d{6}");      //pattern to extract postcode from data entry
         Matcher matcher;                                //create object to store substring that match postcode pattern
+
+
+        //create reader for input file: outside the loop to keep track of cursor position in file
+        BufferedReader inputStream = null;                    //initialized here to be visible outside of try block
+
+        try {
+            inputStream = new BufferedReader(new FileReader(file)); //FileReader always assumes default encoding is OK!
+        } catch (FileNotFoundException ex){
+            ex.printStackTrace();
+        }
 
 
         //create the hash table
@@ -57,8 +69,9 @@ public class HashGenerator {
         //fill the hash table
         for (int i = 0; i < 104; i++) {
             //iterate through entries of input file
+            String[] data_entry = getContents(inputStream);
 
-            String[] data_entry = getContents(file);
+
             matcher = regex.matcher(data_entry[6]);         //create matcher object to store matched postcode
                                                             //index 6 is where postal code is stored
 
@@ -68,14 +81,14 @@ public class HashGenerator {
 
             HashMap[hashcode].key = key;
             HashMap[hashcode].data.add(data_entry);
-
+          
         }
 
         int success = 1;
         return success; //if hashing is successful, return 1, else 0
     }
 
-    public static int hashFunction(int key){
+    private static int hashFunction(int key){
         //algorithm takes key as input and returns hashcode using modulus
         //modulus based on constant TABLESIZE
         int hashcode;
@@ -87,21 +100,17 @@ public class HashGenerator {
         return hashcode;
     }
 
-    public static String[] getContents (File aFile){
+    private static String[] getContents (BufferedReader input){
         //...checks on aFile are elided
         //StringBuffer contents = new StringBuffer();
 
 
-        String[] data_entry = new String[11];
+        String[] data_entry = new String[216555];
 
 
-        //declared here only to make visible to finally clause
-        BufferedReader input = null;
+
         try {
-            //use buffering, reading one line at a time
-            //FileReader always assumes default encoding is OK!
-            input = new BufferedReader(new FileReader(aFile));
-            String line = null; //not declared within while loop
+            String line; //not declared within while loop
             /*
              * readLine is a bit quirky :
              * it returns the content of a line MINUS the newline.
@@ -110,9 +119,11 @@ public class HashGenerator {
              */
             int i = 0;
             while ((line = input.readLine()) != null) {
-                data_entry[i] = line;
-                i++;
-                //contents.append(System.getProperty("line.separator"));
+                if (!line.trim().equals("{") && !line.trim().equals("},")) {
+                    data_entry[i] = line;
+                    i++;
+                    //contents.append(System.getProperty("line.separator"));
+                }
             }
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
