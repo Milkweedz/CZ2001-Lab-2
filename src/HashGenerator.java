@@ -52,13 +52,13 @@ public class HashGenerator {
 
         //create the hash table
         HashMap = new HashBucket[TABLESIZE];
-
+        String[] data_entry = getContents(file);
 
         //fill the hash table
         for (int i = 0; i < 104; i++) {
             //iterate through entries of input file
 
-            String[] data_entry = getContents(file);
+
 
             matcher = regex.matcher(data_entry[6]);         //create matcher object to store matched postcode
                                                             //index 6 is where postal code is stored
@@ -111,9 +111,11 @@ public class HashGenerator {
              */
             int i = 0;
             while ((line = input.readLine()) != null) {
-                data_entry[i] = line;
-                i++;
-                //contents.append(System.getProperty("line.separator"));
+                if (!line.trim().equals("{") && !line.trim().equals("},")) {
+                    data_entry[i] = line;
+                    i++;
+                    //contents.append(System.getProperty("line.separator"));
+                }
             }
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
