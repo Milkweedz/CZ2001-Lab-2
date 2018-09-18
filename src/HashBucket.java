@@ -1,6 +1,18 @@
 import java.util.LinkedList;
 
 public class HashBucket {
-    public int hashcode;                        //hashcode is actually not necessary since it's the same as index of array
-    public LinkedList<String> data;
+    private int key;
+    private LinkedList<String> data;
+    
+    public HashBucket (int k, LinkedList<String> d) {
+        key = k;
+        data = d;
+    }
+    public int getKey() {
+        return key;
+    }
+    
+    public LinkedList<String> getData() {
+        return data;
+    }
 }
