@@ -42,10 +42,10 @@ public class HashGenerator {
     }
 
 
-    public static int Hash(File file){
+    private static int Hash(File file){
         //implement hash (use the constant TABLESIZE declared in class!)
 
-        LinkedList<String> temp = new LinkedList();     //list to store data entries
+        LinkedList<String[]> temp = new LinkedList();     //list to store data entries
         int key;                                        //key in this example is the postcode
         int hashcode;                                   //hashcode is the output of the hash function
         Pattern regex = Pattern.compile("\\d{6}");      //pattern to extract postcode from data entry
@@ -78,7 +78,7 @@ public class HashGenerator {
         return success; //if hashing is successful, return 1, else 0
     }
 
-    public static int hashFunction(int key){
+    private static int hashFunction(int key){
         //algorithm takes key as input and returns hashcode using modulus
         //modulus based on constant TABLESIZE
         int hashcode;
@@ -90,7 +90,7 @@ public class HashGenerator {
         return hashcode;
     }
 
-    public static String[] getContents (File aFile){
+    private static String[] getContents (File aFile){
         //...checks on aFile are elided
         //StringBuffer contents = new StringBuffer();
 
