@@ -61,6 +61,7 @@ public class HashGenerator {
             //iterate through entries of input file
 
             String[] data_entry = getContents(file);
+
             matcher = regex.matcher(data_entry[6]);         //create matcher object to store matched postcode
                                                             //index 6 is where postal code is stored
 
@@ -70,7 +71,7 @@ public class HashGenerator {
 
             HashMap[hashcode].key = key;
             HashMap[hashcode].data.add(data_entry);
-
+          
         }
 
         int success = 1;
@@ -94,7 +95,7 @@ public class HashGenerator {
         //StringBuffer contents = new StringBuffer();
 
 
-        String[] data_entry = new String[11];
+        String[] data_entry = new String[216555];
 
 
         //declared here only to make visible to finally clause
