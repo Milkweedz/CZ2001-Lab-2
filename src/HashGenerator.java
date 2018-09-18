@@ -17,8 +17,8 @@ import java.util.regex.Pattern;
 
 
 public class HashGenerator {
-    private static HashBucket[] HashMap;
-    private static final int TABLESIZE = 11;       //manually modify hash table size here
+    private static final int TABLESIZE = 211;       //manually modify hash table size here
+    private static HashBucket[] HashMap = new HashBucket[TABLESIZE];
 
     public static void main(String[] args) throws IOException {
         System.out.println("Reading input...");
@@ -44,37 +44,58 @@ public class HashGenerator {
 
     private static int Hash(File file){
         //implement hash (use the constant TABLESIZE declared in class!)
+        int success = 1;                                //checks if hashing is successful
 
-        LinkedList<String[]> temp = new LinkedList();     //list to store data entries
+
+        LinkedList<String[]> tempList = new LinkedList<>();     //list to store data entries
         int key;                                        //key in this example is the postcode
         int hashcode;                                   //hashcode is the output of the hash function
-        Pattern regex = Pattern.compile("\\d{6}");      //pattern to extract postcode from data entry
+        Pattern regex = Pattern.compile("(\\d{6})");      //pattern to extract postcode from data entry
         Matcher matcher;                                //create object to store substring that match postcode pattern
 
 
-        //create the hash table
-        HashMap = new HashBucket[TABLESIZE];
-        String[] data_entry = getContents(file);
+        //create reader for input file: outside the loop to keep track of cursor position in file
+        BufferedReader inputStream = null;                    //initialized here to be visible outside of try block
+
+        try {
+            inputStream = new BufferedReader(new FileReader(file)); //FileReader always assumes default encoding is OK!
+        } catch (FileNotFoundException ex){
+            ex.printStackTrace();
+        }
+
+
 
         //fill the hash table
         for (int i = 0; i < 104; i++) {
             //iterate through entries of input file
-
+            if (inputStream == null) {
+                success = 0;
+                break;
+            }
+            String[] data_entry = getContents(inputStream);
 
 
             matcher = regex.matcher(data_entry[6]);         //create matcher object to store matched postcode
                                                             //index 6 is where postal code is stored
+            if (matcher.find()) {
+                key = Integer.parseInt(matcher.group(0));        //group() finds postcode, parseInt() turns it to integer
 
-            key = Integer.parseInt(matcher.group());        //group() finds postcode, parseInt() turns it to integer
+                hashcode = hashFunction(key);
 
-            hashcode = hashFunction(key);
+                if (HashMap[hashcode] == null) {
+                    HashMap[hashcode] = new HashBucket(key, tempList);
+                }
+                else {
+                    HashMap[hashcode].key = key;
+                    HashMap[hashcode].data = tempList;
+                    tempList.add(data_entry);
+                    tempList = new LinkedList<>();
+                }
 
-            HashMap[hashcode].key = key;
-            HashMap[hashcode].data.add(data_entry);
-          
+            }
         }
 
-        int success = 1;
+
         return success; //if hashing is successful, return 1, else 0
     }
 
@@ -82,15 +103,13 @@ public class HashGenerator {
         //algorithm takes key as input and returns hashcode using modulus
         //modulus based on constant TABLESIZE
         int hashcode;
-
-
         hashcode = key % TABLESIZE;
         //intentionally bad hash function to demonstrate key clumping in certain table sizes
 
         return hashcode;
     }
 
-    private static String[] getContents (File aFile){
+    private static String[] getContents (BufferedReader input){
         //...checks on aFile are elided
         //StringBuffer contents = new StringBuffer();
 
@@ -98,34 +117,34 @@ public class HashGenerator {
         String[] data_entry = new String[216555];
 
 
-        //declared here only to make visible to finally clause
-        BufferedReader input = null;
+
         try {
-            //use buffering, reading one line at a time
-            //FileReader always assumes default encoding is OK!
-            input = new BufferedReader(new FileReader(aFile));
-            String line = null; //not declared within while loop
+            String line; //not declared within while loop
             /*
              * readLine is a bit quirky :
              * it returns the content of a line MINUS the newline.
              * it returns null only for the END of the stream.
              * it returns an empty String if two newlines appear in a row.
              */
-            int i = 0;
+
+
+            boolean isContent;
             while ((line = input.readLine()) != null) {
-                if (!line.trim().equals("{") && !line.trim().equals("},")) {
-                    data_entry[i] = line;
-                    i++;
-                    //contents.append(System.getProperty("line.separator"));
+
+                if (line.trim().equals("},")) break;                     //break out of loop if at end of data_entry
+                isContent = !line.trim().equals("{") && !line.trim().equals("[");
+                //this line makes sure we only put actual content in string array. it removes json formatting symbols
+                if (isContent) {
+                    for(int i=0; i<11; i++) {
+                        data_entry[i] = line;
+                    }
                 }
             }
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
         } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
             try {
-                if (input != null) {
+                if (input == null) {
                     //flush and close both "input" and its underlying FileReader
                     input.close();
                 }
