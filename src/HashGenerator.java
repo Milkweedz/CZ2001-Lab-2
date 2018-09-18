@@ -12,7 +12,8 @@ Linked lists have variable length, so no probing is required.
 import java.io.*;
 import java.util.LinkedList;
 import java.util.Scanner;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class HashGenerator {
@@ -38,46 +39,36 @@ public class HashGenerator {
         }
     }
 
+
     public static int Hash(File file){
         //implement hash (use the constant TABLESIZE declared in class!)
 
         LinkedList<String> temp = new LinkedList();     //list to store data entries
-        int j = 0;
-        int key = 0;
-        //this is the size of the hash table - a prime number is best
+        int key;                                        //key in this example is the postcode
+        int hashcode;                                   //hashcode is the output of the hash function
+        Pattern regex = Pattern.compile("\\d{6}");      //pattern to extract postcode from data entry
+        Matcher matcher;                                //create object to store substring that match postcode pattern
 
 
         //create the hash table
         HashMap = new HashBucket[TABLESIZE];
-        for (int i = 0; i < TABLESIZE; i++)
-            HashMap[i].hashcode = i;
 
 
-        //fill the hash table so that every slot contains a space
+        //fill the hash table
         for (int i = 0; i < 104; i++) {
             //iterate through entries of input file
 
             String[] data_entry = getContents(file);
-            if (data_entry.trim().equals("{") && !array[i].trim().equals("},")) {
-                if (array[i].trim().substring(1,7).equals("POSTAL")) {
-                    key = Integer.parseInt(array[i].trim().substring(11,17));
-                } else {
-                    temp.add(array[i].trim());                   
-                }
-            } else if (array[i].trim().equals("},")) {
-                HashMap[j] = new HashBucket(key,temp);
-                j++;                  
-            }                   
-        }
-        int i = 0;
-        int first = 0;
-        int last = 10;
-        while (HashMap[i] != null) {
-            System.out.println(HashMap[i].getKey());
-            System.out.println(HashMap[i].getData().subList(first, last));
-            i++;
-            first+=10;
-            last+=10;
+            matcher = regex.matcher(data_entry[6]);         //create matcher object to store matched postcode
+                                                            //index 6 is where postal code is stored
+
+            key = Integer.parseInt(matcher.group());        //group() finds postcode, parseInt() turns it to integer
+
+            hashcode = hashFunction(key);
+
+            HashMap[hashcode].key = key;
+            HashMap[hashcode].data.add(data_entry);
+
         }
 
         int success = 1;
@@ -88,6 +79,10 @@ public class HashGenerator {
         //algorithm takes key as input and returns hashcode using modulus
         //modulus based on constant TABLESIZE
         int hashcode;
+
+
+        hashcode = key % TABLESIZE;
+        //intentionally bad hash function to demonstrate key clumping in certain table sizes
 
         return hashcode;
     }
@@ -115,7 +110,7 @@ public class HashGenerator {
              */
             int i = 0;
             while ((line = input.readLine()) != null) {
-                array[i] = line;
+                data_entry[i] = line;
                 i++;
                 //contents.append(System.getProperty("line.separator"));
             }
