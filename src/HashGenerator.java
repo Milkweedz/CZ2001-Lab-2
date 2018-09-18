@@ -42,32 +42,39 @@ public class HashGenerator {
         //implement hash (use the constant TABLESIZE declared in class!)
 
         int size = 11;
-        int index = 0;
         int i = 0;
+        int j = 0;
+        int key = 0;
         //this is the size of the hash table - a prime number is best
-        String[] hashTable = new String[size];
         HashMap = new HashBucket[size];
+        for (i = 0; i < size; i++)
+            HashMap[i] = null;
         //create the hash table
-        LinkedList<String> temp = new LinkedList<String>();
+        LinkedList<String> temp = new LinkedList();
 
         //fill the hash table so that every slot contains a space
         getContents(file);
         for (i = 0; i < 104; i++) {
             if (!array[i].trim().equals("{") && !array[i].trim().equals("},")) {
                 if (array[i].trim().substring(1,7).equals("POSTAL")) {
-                    index = i % size;
-                    //hashTable[index] = array[i].trim().substring(11,17);
-                    System.out.println(array[i].trim().substring(11,17));
-                    HashMap[index] = new HashBucket(Integer.parseInt(array[i].trim().substring(11,17)),temp);
-                } else
-                    temp.add(array[i]);
-            }
-
+                    key = Integer.parseInt(array[i].trim().substring(11,17));
+                } else {
+                    temp.add(array[i].trim());                   
+                }
+            } else if (array[i].trim().equals("},")) {
+                HashMap[j] = new HashBucket(key,temp);
+                j++;                  
+            }                   
         }
         i = 0;
+        int first = 0;
+        int last = 10;
         while (HashMap[i] != null) {
             System.out.println(HashMap[i].getKey());
+            System.out.println(HashMap[i].getData().subList(first, last));
             i++;
+            first+=10;
+            last+=10;
         }
 
         int success = 1;
