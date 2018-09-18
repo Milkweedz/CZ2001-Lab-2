@@ -17,12 +17,12 @@ import java.util.Scanner;
 
 public class HashGenerator {
     private static HashBucket[] HashMap;
-    private static final int TABLESIZE = 128;       //manually modify hash table size here
+    private static final int TABLESIZE = 11;       //manually modify hash table size here
 
     public static void main(String[] args) throws IOException {
         System.out.println("Reading input...");
         File file = new File(".\\postal_codes_singapore.json");
-        Scanner scan = new Scanner(file);
+        Scanner scan = new Scanner(System.in);
 
         System.out.println("Hashing...");
         int success = Hash(file);
@@ -41,21 +41,24 @@ public class HashGenerator {
     public static int Hash(File file){
         //implement hash (use the constant TABLESIZE declared in class!)
 
-        int size = 11;
-        int i = 0;
+        LinkedList<String> temp = new LinkedList();     //list to store data entries
         int j = 0;
         int key = 0;
         //this is the size of the hash table - a prime number is best
-        HashMap = new HashBucket[size];
-        for (i = 0; i < size; i++)
-            HashMap[i] = null;
+
+
         //create the hash table
-        LinkedList<String> temp = new LinkedList();
+        HashMap = new HashBucket[TABLESIZE];
+        for (int i = 0; i < TABLESIZE; i++)
+            HashMap[i].hashcode = i;
+
 
         //fill the hash table so that every slot contains a space
-        getContents(file);
-        for (i = 0; i < 104; i++) {
-            if (!array[i].trim().equals("{") && !array[i].trim().equals("},")) {
+        for (int i = 0; i < 104; i++) {
+            //iterate through entries of input file
+
+            String[] data_entry = getContents(file);
+            if (data_entry.trim().equals("{") && !array[i].trim().equals("},")) {
                 if (array[i].trim().substring(1,7).equals("POSTAL")) {
                     key = Integer.parseInt(array[i].trim().substring(11,17));
                 } else {
@@ -66,7 +69,7 @@ public class HashGenerator {
                 j++;                  
             }                   
         }
-        i = 0;
+        int i = 0;
         int first = 0;
         int last = 10;
         while (HashMap[i] != null) {
@@ -89,9 +92,13 @@ public class HashGenerator {
         return hashcode;
     }
 
-    public static String getContents (File aFile){
+    public static String[] getContents (File aFile){
         //...checks on aFile are elided
-        StringBuffer contents = new StringBuffer();
+        //StringBuffer contents = new StringBuffer();
+
+
+        String[] data_entry = new String[11];
+
 
         //declared here only to make visible to finally clause
         BufferedReader input = null;
@@ -110,7 +117,7 @@ public class HashGenerator {
             while ((line = input.readLine()) != null) {
                 array[i] = line;
                 i++;
-                contents.append(System.getProperty("line.separator"));
+                //contents.append(System.getProperty("line.separator"));
             }
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
@@ -126,6 +133,6 @@ public class HashGenerator {
                 ex.printStackTrace();
             }
         }
-        return contents.toString();
+        return data_entry;
     }
 }
