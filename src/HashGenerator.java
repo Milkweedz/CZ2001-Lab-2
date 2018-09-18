@@ -58,13 +58,13 @@ public class HashGenerator {
             //iterate through entries of input file
 
             String[] data_entry = getContents(file);
-            if (data_entry.trim().equals("{") && !array[i].trim().equals("},")) {
-                if (array[i].trim().substring(1,7).equals("POSTAL")) {
-                    key = Integer.parseInt(array[i].trim().substring(11,17));
+            if (!data_entry.trim().equals("{") && !data_entry[i].trim().equals("},")) {
+                if (data_entry[i].trim().substring(1,7).equals("POSTAL")) {
+                    key = Integer.parseInt(data_entry[i].trim().substring(11,17));
                 } else {
-                    temp.add(array[i].trim());                   
+                    temp.add(data_entry[i].trim());                   
                 }
-            } else if (array[i].trim().equals("},")) {
+            } else if (data_entry[i].trim().equals("},")) {
                 HashMap[j] = new HashBucket(key,temp);
                 j++;                  
             }                   
@@ -97,7 +97,7 @@ public class HashGenerator {
         //StringBuffer contents = new StringBuffer();
 
 
-        String[] data_entry = new String[11];
+        String[] data_entry = new String[216555];
 
 
         //declared here only to make visible to finally clause
@@ -115,7 +115,7 @@ public class HashGenerator {
              */
             int i = 0;
             while ((line = input.readLine()) != null) {
-                array[i] = line;
+                data_entry[i] = line;
                 i++;
                 //contents.append(System.getProperty("line.separator"));
             }
