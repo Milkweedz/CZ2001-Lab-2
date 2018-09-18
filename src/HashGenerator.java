@@ -31,12 +31,14 @@ public class HashGenerator {
         if(success==1) System.out.println("Finished hashing data.");
 
         int key;
-        while(true){
+
+
+        /*while(true){
             key = scan.nextInt();
             dataType result = search(key);
             print result;
             //this is incomplete code
-        }
+        }*/
     }
 
 
