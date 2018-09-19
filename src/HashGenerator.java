@@ -10,33 +10,35 @@ Linked lists have variable length, so no probing is required.
 
 
 import java.io.*;
-import java.util.LinkedList;
-import java.util.Scanner;
-import java.util.regex.Matcher;
+import java.util.Scanner;                           //read user input
+import java.util.regex.Matcher;                     //Matcher and Pattern are used to extract the 6 digit postcode
 import java.util.regex.Pattern;
 
 
 public class HashGenerator {
-    private static final int TABLESIZE = 211;       //manually modify hash table size here
+    private static final int TABLESIZE = 1000;       //manually modify hash table size here
     private static HashBucket[] HashMap = new HashBucket[TABLESIZE];
+    //A hashbucket class is implemented to manage linked lists
+    //the HashMap array stores multiple hashbuckets, its indices are the hashcodes produced from the hashFunction
 
     public static void main(String[] args) {
         System.out.println("Reading input...");
         File file = new File(".\\postal_codes_singapore.json");
-        Scanner scan = new Scanner(System.in);
+
 
         System.out.println("Hashing...");
-        int success = Hash(file);
-
+        int success = Hash(file);                   //call hash function, returns 1 for success and 0 for hash failure
+                                                    //remnant of debugging
         if(success==1) System.out.println("Finished hashing data.");
 
-        int key;
 
+        Scanner scan = new Scanner(System.in);      //scanner to read user input
+        int key;                                    //key is postal code the user is searching for
 
         while(true){
             System.out.print("Input postal code to search: ");
             key = scan.nextInt();
-            if (key == -1) break;
+            if (key == -1) break;                   //user can type -1 to exit loop
             search(key);
         }
     }
@@ -47,41 +49,52 @@ public class HashGenerator {
         int success = 1;                                //checks if hashing is successful
 
 
-        LinkedList<String[]> tempList = new LinkedList<>();     //list to store data entries
         String keyString;                               //key in string format
         int key;                                        //key in this example is the postcode
-        int hashcode;                                   //hashcode is the output of the hash function
-        Pattern regex = Pattern.compile("(\\d{6})");      //pattern to extract postcode from data entry
+        int hashcode;                                   //hashcode is the output of the hash function,
+                                                        // and the index where the list is stored
+
+        Pattern regex = Pattern.compile("(\\d{6})");    //6-digit pattern, to extract postcode from data entry
         Matcher matcher;                                //create object to store substring that match postcode pattern
+        //as a friend pointed out, we could have just used a JSON parser, but what's the fun in that?
+
 
 
         //create reader for input file: outside the loop to keep track of cursor position in file
-        BufferedReader inputStream = null;                    //initialized here to be visible outside of try block
+        BufferedReader inputStream = null;              //initialized here to be visible outside of try block
 
         try {
-            inputStream = new BufferedReader(new FileReader(file)); //FileReader always assumes default encoding is OK!
+            inputStream = new BufferedReader(new FileReader(file));
+            //open input file and get ready to read
+            //FileReader always assumes default encoding is OK!
         } catch (FileNotFoundException ex){
             ex.printStackTrace();
+            //necessary error catching, purely syntactic
         }
 
 
 
         //fill the hash table
-        for (int i = 0; i < 104; i++) {
+        for (int i = 0; i < 1000; i++) {                     //i is an arbitrary limit to reduce program runtime in debugging
+                                                            //make i very large (>100000) when reading entire file.
             //iterate through entries of input file
-            if (inputStream == null) {
-                success = 0;
+            if (inputStream == null) {                      //exit condition when i is extremely large
                 break;
             }
+
+
+            //getContents takes a JSON object and converts it into a string array
             String[] data_entry = getContents(inputStream);
+            //getContents is called once for each object, the cursor's position in file is retained after each call
+            //because the BufferedReader inputStream is passed as argument
 
 
             matcher = regex.matcher(data_entry[6]);         //create matcher object to store matched postcode
-                                                            //index 6 is where postal code is stored
+                                                            //index 6 is where postal code is stored in the JSON file
 
             if (matcher.find()) {
                 keyString = matcher.group(0);
-                key = Integer.parseInt(keyString);        //group() finds postcode, parseInt() turns it to integer
+                key = Integer.parseInt(keyString);          //group() finds postcode, parseInt() turns it to integer
 
                 hashcode = hashFunction(key);
 
@@ -96,7 +109,7 @@ public class HashGenerator {
         }
 
 
-        return success; //if hashing is successful, return 1, else 0
+        return success;                                     //if hashing is successful, return 1, else 0
     }
 
     private static int hashFunction(int key){
@@ -110,11 +123,10 @@ public class HashGenerator {
     }
 
     private static String[] getContents (BufferedReader input){
-        //...checks on aFile are elided
-        //StringBuffer contents = new StringBuffer();
+        //takes a buffered input stream, crops out json objects, returns them in string arrays
 
 
-        String[] data_entry = new String[216555];
+        String[] data_entry = new String[100000];                   //arbitrarily large string buffer
 
 
 
@@ -129,18 +141,21 @@ public class HashGenerator {
 
 
             boolean isContent;
-            line = input.readLine();
+            line = input.readLine();                            //enables the first comparison in while loop
+
             while (line != null) {
                 if (line.trim().equals("},")) break;                     //break out of loop if at end of data_entry
+
                 isContent = !line.trim().equals("{") && !line.trim().equals("[");
                 //this line makes sure we only put actual content in string array. it removes json formatting symbols
+
                 if (isContent) {
                     for(int i=0; i<11; i++) {
-                        data_entry[i] = line;
-                        line = input.readLine();
+                        data_entry[i] = line;                   //write to string array
+                        line = input.readLine();                //read next line
                     }
                 }
-                else line = input.readLine();
+                else line = input.readLine();                   //go to next line if there is nothing to store to array
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -154,47 +169,19 @@ public class HashGenerator {
                 ex.printStackTrace();
             }
         }
-        return data_entry;
+        return data_entry;                                      //data entry is a string array
     }
 
 
     private static void search(int key){
         int hashcode = hashFunction(key);
 
-        if (HashMap[hashcode] == null){
+        if (HashMap[hashcode] == null){                         //this is important to avoid NullPointerException
             System.out.println("Record not found!");
         }
         else {
-            HashMap[hashcode].read(key);
+            HashMap[hashcode].read(key);                        //read is a method of HashBucket
         }
     }
 
 }
-
-/*
-        System.out.println(key);
-        System.out.println(hashcode);
-        //System.out.println(HashMap[hashcode]);
-        LinkedList<String[]> linkedList = HashMap[hashcode].data;
-
-        Pattern regex = Pattern.compile("(\\d{6})");      //pattern to extract postcode from data entry
-        Matcher matcher;                                //create object to store substring that match postcode pattern
-
-        //System.out.println(data_entry[0]);
-
-        String keyString = "";
-        int listLength = linkedList.size();
-        for (int i=0; i<listLength; i++){
-            data_entry = linkedList.get(i);
-            System.out.println(data_entry[6]);
-            matcher = regex.matcher(data_entry[6]);         //create matcher object to store matched postcode
-            //index 6 is where postal code is stored
-            if (matcher.find()) {
-                keyString = matcher.group(0);
-            }
-            System.out.println("DATAENTRY" + keyString);
-            if (Integer.parseInt(keyString) == key){
-                System.out.println("found!");
-            }
-        }
- */
