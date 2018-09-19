@@ -10,7 +10,6 @@ Linked lists have variable length, so no probing is required.
 
 
 import java.io.*;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -37,10 +36,8 @@ public class HashGenerator {
         while(true){
             System.out.print("Input postal code to search: ");
             key = scan.nextInt();
-            //dataType result = ;
+            if (key == -1) break;
             search(key);
-            //print result;
-            //this is incomplete code
         }
     }
 
@@ -81,19 +78,15 @@ public class HashGenerator {
 
             matcher = regex.matcher(data_entry[6]);         //create matcher object to store matched postcode
                                                             //index 6 is where postal code is stored
-            //System.out.println(data_entry[0]);
+
             if (matcher.find()) {
                 keyString = matcher.group(0);
                 key = Integer.parseInt(keyString);        //group() finds postcode, parseInt() turns it to integer
-                //System.out.println(keyString);
-                if (key == 18907) {
-                    System.out.println("MATCH!");
-                }
+
                 hashcode = hashFunction(key);
 
                 if (HashMap[hashcode] == null) {
-                    HashMap[hashcode] = new HashBucket(key, tempList);
-                    tempList = new LinkedList<>();
+                    HashMap[hashcode] = new HashBucket(key, data_entry);
                 }
                 else {
                     HashMap[hashcode].append(key, data_entry);
@@ -167,9 +160,13 @@ public class HashGenerator {
 
     private static void search(int key){
         int hashcode = hashFunction(key);
-        System.out.println(HashMap[hashcode]);
 
-        HashMap[hashcode].read(key);
+        if (HashMap[hashcode] == null){
+            System.out.println("Record not found!");
+        }
+        else {
+            HashMap[hashcode].read(key);
+        }
     }
 
 }
