@@ -10,6 +10,7 @@ Linked lists have variable length, so no probing is required.
 
 
 import java.io.*;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -20,7 +21,7 @@ public class HashGenerator {
     private static final int TABLESIZE = 211;       //manually modify hash table size here
     private static HashBucket[] HashMap = new HashBucket[TABLESIZE];
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         System.out.println("Reading input...");
         File file = new File(".\\postal_codes_singapore.json");
         Scanner scan = new Scanner(System.in);
@@ -33,12 +34,14 @@ public class HashGenerator {
         int key;
 
 
-        /*while(true){
+        while(true){
+            System.out.print("Input postal code to search: ");
             key = scan.nextInt();
-            dataType result = search(key);
-            print result;
+            //dataType result = ;
+            search(key);
+            //print result;
             //this is incomplete code
-        }*/
+        }
     }
 
 
@@ -48,6 +51,7 @@ public class HashGenerator {
 
 
         LinkedList<String[]> tempList = new LinkedList<>();     //list to store data entries
+        String keyString;                               //key in string format
         int key;                                        //key in this example is the postcode
         int hashcode;                                   //hashcode is the output of the hash function
         Pattern regex = Pattern.compile("(\\d{6})");      //pattern to extract postcode from data entry
@@ -77,19 +81,22 @@ public class HashGenerator {
 
             matcher = regex.matcher(data_entry[6]);         //create matcher object to store matched postcode
                                                             //index 6 is where postal code is stored
+            //System.out.println(data_entry[0]);
             if (matcher.find()) {
-                key = Integer.parseInt(matcher.group(0));        //group() finds postcode, parseInt() turns it to integer
-
+                keyString = matcher.group(0);
+                key = Integer.parseInt(keyString);        //group() finds postcode, parseInt() turns it to integer
+                //System.out.println(keyString);
+                if (key == 18907) {
+                    System.out.println("MATCH!");
+                }
                 hashcode = hashFunction(key);
 
                 if (HashMap[hashcode] == null) {
                     HashMap[hashcode] = new HashBucket(key, tempList);
+                    tempList = new LinkedList<>();
                 }
                 else {
-                    HashMap[hashcode].key = key;
-                    HashMap[hashcode].data = tempList;
-                    tempList.add(data_entry);
-                    tempList = new LinkedList<>();
+                    HashMap[hashcode].append(key, data_entry);
                 }
 
             }
@@ -129,16 +136,18 @@ public class HashGenerator {
 
 
             boolean isContent;
-            while ((line = input.readLine()) != null) {
-
+            line = input.readLine();
+            while (line != null) {
                 if (line.trim().equals("},")) break;                     //break out of loop if at end of data_entry
                 isContent = !line.trim().equals("{") && !line.trim().equals("[");
                 //this line makes sure we only put actual content in string array. it removes json formatting symbols
                 if (isContent) {
                     for(int i=0; i<11; i++) {
                         data_entry[i] = line;
+                        line = input.readLine();
                     }
                 }
+                else line = input.readLine();
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -154,4 +163,41 @@ public class HashGenerator {
         }
         return data_entry;
     }
+
+
+    private static void search(int key){
+        int hashcode = hashFunction(key);
+        System.out.println(HashMap[hashcode]);
+
+        HashMap[hashcode].read(key);
+    }
+
 }
+
+/*
+        System.out.println(key);
+        System.out.println(hashcode);
+        //System.out.println(HashMap[hashcode]);
+        LinkedList<String[]> linkedList = HashMap[hashcode].data;
+
+        Pattern regex = Pattern.compile("(\\d{6})");      //pattern to extract postcode from data entry
+        Matcher matcher;                                //create object to store substring that match postcode pattern
+
+        //System.out.println(data_entry[0]);
+
+        String keyString = "";
+        int listLength = linkedList.size();
+        for (int i=0; i<listLength; i++){
+            data_entry = linkedList.get(i);
+            System.out.println(data_entry[6]);
+            matcher = regex.matcher(data_entry[6]);         //create matcher object to store matched postcode
+            //index 6 is where postal code is stored
+            if (matcher.find()) {
+                keyString = matcher.group(0);
+            }
+            System.out.println("DATAENTRY" + keyString);
+            if (Integer.parseInt(keyString) == key){
+                System.out.println("found!");
+            }
+        }
+ */
