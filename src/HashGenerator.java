@@ -123,8 +123,7 @@ public class HashGenerator {
         //modulus based on constant TABLESIZE
         int hashcode = 0;
         //hashcode = key % TABLESIZE;     //First hashing algorithm - Mod method
-        System.out.println(key);      //Second hashing algorithm - Folding method
-        while (key > 0) {
+        while (key > 0) {                 //Second hashing algorithm - Folding method
             hashcode += key % 100; 
             key/=100;
         }
