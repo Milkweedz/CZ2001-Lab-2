@@ -191,7 +191,7 @@ public class HashGenerator {
             comparison = 1;
         }
         else {
-            comparison = HashMap[hashcode].slowread(key);                        //read is a method of HashBucket
+            comparison = HashMap[hashcode].read(key);                        //read is a method of HashBucket
         }
         return comparison;
     }
