@@ -68,10 +68,11 @@ class HashBucket {
         This method searches each linked list for a key match, but we are not sure if it is slower.
      */
 
-    int slowread(int key){
+   int slowread(int key){
         String[] data_entry;
         String keyString = Integer.toString(key);
         int i;
+        boolean found = false;
         for (i=0; i<this.data.size(); i++){
             data_entry = this.data.get(i);
             if (data_entry[6].contains(keyString)){             //if finds matching postal code
@@ -80,8 +81,11 @@ class HashBucket {
                 for (int j=0; j<11; j++){                       //prints out entire data entry line by line
                     System.out.println(data_entry[j]);
                 }
+                found = true;
             }
         }
+        if (!found)
+            System.out.println("Record not found !");
         System.out.println("Number of key comparsions : " + i);
         return i;
     }
