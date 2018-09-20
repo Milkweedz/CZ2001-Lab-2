@@ -62,7 +62,6 @@ public class HashGenerator {
 
         Pattern regex = Pattern.compile("(\\d{6})");    //6-digit pattern, to extract postcode from data entry
         Matcher matcher;                                //create object to store substring that match postcode pattern
-        //as a friend pointed out, we could have just used a JSON parser, but what's the fun in that?
 
 
 
