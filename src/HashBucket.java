@@ -32,43 +32,7 @@ class HashBucket {
         this.data.push(data_entry);
     }
 
-
-
-    /*
-        It is actually much faster to find something in the hashmap without traversing the linked lists.
-        The following function uses the integer array of keys as a direct lookup table.
-        The searcher looks through the key array to see if there is a matching key.
-        If there is, the index of the matching key will be the same as the object correlating the key.
-
-        This method may not in fact be faster if the linked list is still traversed within the implementation of the
-        get() method of the LinkedList class.
-     */
-
-    int read(int key){
-        int i;
-        String[] data_entry;
-        for (i=0; i<this.keyCount; i++){
-            if(this.key[i] == key){
-                data_entry = this.data.get(i);
-                System.out.println("Data Entry " + i);
-                for (int j=0; j<11; j++){
-                    System.out.println(data_entry[j]);
-                }
-            }
-        }
-        System.out.println("Number of key comparsions : " + i);
-        return i;
-    }
-
-
-    /*
-        If the above method indeed does not traverse the linked list and is faster, we may want a read method that is
-        slower, to exaggerate the time difference caused by actually iterating through the string.
-
-        This method searches each linked list for a key match, but we are not sure if it is slower.
-     */
-
-   int slowread(int key){
+   int read(int key){
         String[] data_entry;
         String keyString = Integer.toString(key);
         int i;
