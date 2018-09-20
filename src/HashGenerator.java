@@ -124,7 +124,7 @@ public class HashGenerator {
         int hashcode = 0;
         //hashcode = key % TABLESIZE;     //First hashing algorithm - Mod method
         System.out.println(key);      //Second hashing algorithm - Folding method
-        for (int i = 0; i < 3; i++) {
+        while (key > 0) {
             hashcode += key % 100; 
             key/=100;
         }
