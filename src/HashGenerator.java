@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 
 
 public class HashGenerator {
-    private static final int TABLESIZE = 1000;       //manually modify hash table size here
+    private static final int TABLESIZE = 503;       //manually modify hash table size here
     private static HashBucket[] HashMap = new HashBucket[TABLESIZE];
     //A hashbucket class is implemented to manage linked lists
     //the HashMap array stores multiple hashbuckets, its indices are the hashcodes produced from the hashFunction
@@ -53,8 +53,6 @@ public class HashGenerator {
     private static int Hash(File file){
         //implement hash (use the constant TABLESIZE declared in class!)
         int success = 1;                                //checks if hashing is successful
-
-
         String keyString;                               //key in string format
         int key;                                        //key in this example is the postcode
         int hashcode;                                   //hashcode is the output of the hash function,
@@ -62,8 +60,6 @@ public class HashGenerator {
 
         Pattern regex = Pattern.compile("(\\d{6})");    //6-digit pattern, to extract postcode from data entry
         Matcher matcher;                                //create object to store substring that match postcode pattern
-
-
 
         //create reader for input file: outside the loop to keep track of cursor position in file
         BufferedReader inputStream = null;              //initialized here to be visible outside of try block
@@ -80,8 +76,8 @@ public class HashGenerator {
 
 
         //fill the hash table
-        for (int i = 0; i < 1000; i++) {                     //i is an arbitrary limit to reduce program runtime in debugging
-                                                            //make i very large (>100000) when reading entire file.
+        for (int i = 0; i < 1313; i++) {                     //i is an arbitrary limit to reduce program runtime in debugging
+                                                            //number of postal codes * 13 to get the number of lines the system needs to read
             //iterate through entries of input file
             if (inputStream == null) {                      //exit condition when i is extremely large
                 break;
@@ -121,12 +117,12 @@ public class HashGenerator {
         //algorithm takes key as input and returns hashcode using modulus
         //modulus based on constant TABLESIZE
         int hashcode = 0;
-        //hashcode = key % TABLESIZE;     //First hashing algorithm - Mod method
-        while (key > 0) {                 //Second hashing algorithm - Folding method
-            hashcode += key % 100; 
-            key/=100;
-        }
-        hashcode/=TABLESIZE;
+        hashcode = key % TABLESIZE;     //First hashing algorithm - Mod method
+        //while(key > 0) {     //Second hashing algorithm - Folding method Line 121 to 125
+        //    hashcode += key % 100; 
+        //    key/=100;
+        //}
+        //hashcode = hashcode % TABLESIZE;
         //intentionally bad hash function to demonstrate key clumping in certain table sizes
 
         return hashcode;
@@ -134,12 +130,7 @@ public class HashGenerator {
 
     private static String[] getContents (BufferedReader input){
         //takes a buffered input stream, crops out json objects, returns them in string arrays
-
-
         String[] data_entry = new String[100000];                   //arbitrarily large string buffer
-
-
-
         try {
             String line; //not declared within while loop
             /*
@@ -148,17 +139,13 @@ public class HashGenerator {
              * it returns null only for the END of the stream.
              * it returns an empty String if two newlines appear in a row.
              */
-
-
             boolean isContent;
             line = input.readLine();                            //enables the first comparison in while loop
 
             while (line != null) {
                 if (line.trim().equals("},")) break;                     //break out of loop if at end of data_entry
-
                 isContent = !line.trim().equals("{") && !line.trim().equals("[");
                 //this line makes sure we only put actual content in string array. it removes json formatting symbols
-
                 if (isContent) {
                     for(int i=0; i<11; i++) {
                         data_entry[i] = line;                   //write to string array
