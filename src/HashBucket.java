@@ -32,7 +32,7 @@ class HashBucket {
         this.data.push(data_entry);
     }
 
-   int read(int key){
+    int read(int key){
         String[] data_entry;
         String keyString = Integer.toString(key);
         int i;
